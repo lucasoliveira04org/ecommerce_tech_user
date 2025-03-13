@@ -1,15 +1,16 @@
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import { Button } from "./ui/button";
+import logo from "../public/image/logo/Sem título.png"
 
-export const Header = ({ title, navigation = [], social_medias = [] }) => {
+export const Header = ({ navigation = [], social_medias = [] }) => {
     return (
-        <header className="bg-blue-950 flex justify-between pb-10">
+        <header className="bg-blue-950 flex justify-between pb-3">
             <div className="flex place-items-center ml-10">
-                <h2>{title}</h2>
+                <img src={logo} width={"120px"} height={"120px"} alt="Imagem Logo" className="hover:scale-110 transition-transform duration-300" />
             </div>
 
             <div>
-                <div className="pb-1">
+                <div className="pb-1 pt-3">
                     <div className="flex gap-4"> 
                         {social_medias.map((social, index) => (
                             <a
@@ -17,11 +18,11 @@ export const Header = ({ title, navigation = [], social_medias = [] }) => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 key={index}
-                                className="text-black hover:text-white"
+                                className="text-zinc-400 hover:text-white transition-colors duration-300"
                             >
-                                {social.name === 'facebook' && <FaFacebook size={24} />}
-                                {social.name === 'twitter' && <FaTwitter size={24} />}
-                                {social.name === 'instagram' && <FaInstagram size={24} />}
+                                {social.name === 'facebook' && <FaFacebook size={20} />}
+                                {social.name === 'twitter' && <FaTwitter size={20} />}
+                                {social.name === 'instagram' && <FaInstagram size={20} />}
                             </a>
                         ))}
                     </div>
@@ -32,7 +33,7 @@ export const Header = ({ title, navigation = [], social_medias = [] }) => {
                         <ul className="flex gap-5">
                             {navigation.map((item, index) => (
                                 <li key={index}>
-                                    <a href={item.href} className="text-zinc-300 hover:text-white font-bold">
+                                    <a href={item.href} className="text-zinc-300 hover:text-white font-bold transition-colors duration-300">
                                         {item.label}
                                     </a>
                                 </li>
