@@ -5,6 +5,7 @@ import { ListProducts } from "../../components/forms/ListProducts";
 import { ManageUsers } from "../../components/forms/ManageUsers";
 import { SettingsPage } from "../../components/forms/SettingsPage";
 import { Dashboard } from "../../components/dashboard/Dashboard";
+import { Link } from "react-router";
 
 export const AdminPage = () => {
     const [selectedItem, setSelectedItem] = useState(null);
@@ -24,65 +25,49 @@ export const AdminPage = () => {
         }
     };
 
+    const items_sidebar = [
+        {label: 'Adicionar Produto', icon: <ShoppingCart size={20} />, onClick: () => setSelectedItem('Adicionar Produto')},
+        {label: 'Listar Produtos', icon: <Package size={20} />, onClick: () => setSelectedItem('Listar Produtos')},
+        {label: 'Gerenciar Usuários', icon: <Users size={20} />, onClick: () => setSelectedItem('Gerenciar Usuários')},
+        {label: 'Configurações', icon: <Settings size={20} />, onClick: () => setSelectedItem('Configurações')},
+    ]
+
     return (
         <div className="h-screen flex">
-            <div className="bg-blue-900 text-white h-full p-4 w-[200px]">
+            {/* Sidebar fixo */}
+            <div className="bg-blue-900 text-white h-full p-4 w-[200px] fixed top-0 left-0 bottom-0">
                 <div>
                     <h2 className="text-lg font-semibold mb-4">Menu</h2>
 
                     {/* Itens do menu */}
                     <div>
-                        <button
-                            onClick={() => setSelectedItem('Adicionar Produto')}
-                            className="flex items-center space-x-2 w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
-                        >
-                            <ShoppingCart size={20} />
-                            <span>Adicionar Produto</span>
-                        </button>
-
-                        <button
-                            onClick={() => setSelectedItem('Listar Produtos')}
-                            className="flex items-center space-x-2 w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
-                        >
-                            <Package size={20} />
-                            <span>Listar Produtos</span>
-                        </button>
-
-                        <button
-                            onClick={() => setSelectedItem('Gerenciar Usuários')}
-                            className="flex items-center space-x-2 w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
-                        >
-                            <Users size={20} />
-                            <span>Gerenciar Usuários</span>
-                        </button>
-
-                        <button
-                            onClick={() => setSelectedItem('Configurações')}
-                            className="flex items-center space-x-2 w-full text-left py-2 px-3 rounded-lg hover:bg-blue-700 transition"
-                        >
-                            <Settings size={20} />
-                            <span>Configurações</span>
-                        </button>
+                        {items_sidebar.map((item, index) => (
+                            <div key={index} className="flex items-center space-x-2 cursor-pointer hover:bg-blue-800 p-2 rounded-lg transition" onClick={item.onClick}>
+                                {item.icon}
+                                <span>{item.label}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
 
             {/* Conteúdo principal */}
-            <div className="flex-1 p-6">
-                {/* Topo */}
-                <div className="bg-white shadow-md p-4 rounded-lg flex justify-between items-center mb-6">
+            <div className="flex-1 p-6 ml-[200px]">
+                {/* Topo fixo */}
+                <div className="bg-white shadow-md p-4 rounded-lg flex justify-between items-center mb-6 fixed top-0 left-[200px] right-0 z-10">
                     <h1 className="text-2xl font-bold text-gray-800">Acesso Administrativo</h1>
                     <div className="space-x-4">
-                        <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+                        <Link to={"/"} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
                             Sair
-                        </button>
-                        <button className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition">
+                        </Link>
+                        <Link className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition">
                             Perfil
-                        </button>
+                        </Link>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-6">
+                {/* Conteúdo rola normalmente */}
+                <div className="grid grid-cols-1 gap-6 mt-[100px]">
                     {renderContent()}
                 </div>
             </div>
