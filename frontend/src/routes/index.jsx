@@ -3,6 +3,7 @@ import { HomePage } from "../pages/home-page"
 import { NotFoundPage } from "../pages/notfound-page"
 import { AdminPage } from "../pages/admin/admin.page"
 import { AdminLoginPage } from "../pages/admin/login.admin.page"
+import { PageTestes } from "../pages/tests/PageTestes"
 
 export const AppRoutes = () => {
     return(
@@ -21,6 +22,11 @@ export const AppRoutes = () => {
                 <Route
                     path="/admin/login"
                     element={<AdminLoginPage/>}
+                />
+
+                <Route
+                    path="/teste"
+                    element={<PageTestes/>}
                 />
 
                 {/* 404 */}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AddProductToFirebase from "../../services/AddProductToFirebase";
 
 export const AddProduct = () => {
     const [productName, setProductName] = useState("");
@@ -22,7 +23,7 @@ export const AddProduct = () => {
         setErrors(formErrors);
 
         if (Object.keys(formErrors).length === 0) {
-            console.log({
+            const productData = {
                 productName,
                 description,
                 price,
@@ -30,7 +31,10 @@ export const AddProduct = () => {
                 productType,
                 promotionValue,
                 promotionEndDate,
-            });
+            }
+
+            const pr = new AddProductToFirebase(productData)
+            pr.addProduct()
         }
     };
 

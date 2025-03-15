@@ -1,5 +1,5 @@
 import { Package, Settings, ShoppingCart, Users } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AddProduct } from "../../components/forms/AddProduct";
 import { ListProducts } from "../../components/forms/ListProducts";
 import { ManageUsers } from "../../components/forms/ManageUsers";
@@ -8,6 +8,10 @@ import { Dashboard } from "../../components/dashboard/Dashboard";
 import { Link } from "react-router";
 
 export const AdminPage = () => {
+    useEffect(() => {
+        document.title = 'E-commerce | Admin'
+    }, [])
+
     const [selectedItem, setSelectedItem] = useState(null);
 
     const renderContent = () => {

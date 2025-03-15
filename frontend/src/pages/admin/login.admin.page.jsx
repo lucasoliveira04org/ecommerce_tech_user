@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { Link } from "react-router";
 
 export const AdminLoginPage = () => {
+    useEffect(() => {
+        document.title = 'E-commerce | Admin'
+    }, [])
+
     return (
         <div className="flex items-center justify-center h-screen bg-gray-100">
             <div className="w-[450px] bg-white shadow-lg rounded-xl p-6 border border-gray-200">
@@ -13,9 +18,9 @@ export const AdminLoginPage = () => {
                         <label htmlFor="login" className="block text-gray-600 font-medium mb-1">
                             Usuário
                         </label>
-                        <input 
-                            type="text" 
-                            id="login" 
+                        <input
+                            type="text"
+                            id="login"
                             placeholder="Digite seu usuário"
                             className="p-3 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                         />
@@ -25,15 +30,15 @@ export const AdminLoginPage = () => {
                         <label htmlFor="senha" className="block text-gray-600 font-medium mb-1">
                             Senha
                         </label>
-                        <input 
-                            type="password" 
-                            id="senha" 
+                        <input
+                            type="password"
+                            id="senha"
                             placeholder="Digite sua senha"
                             className="p-3 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                         />
                     </div>
 
-                    <Link 
+                    <Link
                         to="/admin"
                         className="block text-center bg-indigo-600 text-white font-semibold py-3 rounded-lg hover:bg-indigo-700 transition"
                     >
