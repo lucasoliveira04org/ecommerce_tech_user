@@ -47,9 +47,7 @@ export const AddProduct = () => {
 
     if (Object.keys(formErrors).length === 0) {
       const pr = new AddProductToFirebase(product);
-      for (i = 0; i < quantityProducts; i++) {
-        pr.addProduct();
-      }
+      await pr.addOrUpdateProduct(quantityProducts);
     }
   };
 

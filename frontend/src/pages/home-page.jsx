@@ -1,7 +1,25 @@
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { HeaderComponent } from "../components/_header";
 import { MainProducts } from "./main-products";
+import app from "../firebaseConfig";
+import { useEffect, useState } from "react";
 
 export const HomePage = () => {
+  const [products, setProducts] = useState([]);
+  const db = getFirestore(app);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const querySnapshot = await getDocs(collection(db, "products"));
+      const productsList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProducts(productsList);
+    };
+    fetchProducts();
+  }, [db]);
+
   const navigation_header = [
     { name: "Home" },
     { name: "Produtos" },
@@ -41,7 +59,7 @@ export const HomePage = () => {
         Carrosel de imagens
       </div>
 
-      <MainProducts product_data={product_data} />
+      <MainProducts product_data={products} />
     </div>
   );
 };

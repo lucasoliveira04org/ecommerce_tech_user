@@ -1,39 +1,45 @@
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  getFirestore,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import app from "../firebaseConfig";
+
+const db = getFirestore(app);
 
 class AddProductToFirebase {
   constructor(product) {
     this.product = product;
   }
 
-  /*
-  async uploadImage(imageFile) {
-    const imageRef = ref(storage, `products/${imageFile.name}`);
-    await uploadBytes(imageRef, imageFile);
-    return await getDownloadURL(imageRef);
-  }
-  */
+  async addOrUpdateProduct(quantity) {
+    const productRef = collection(db, "products");
 
-  async addProduct() {
-    try {
-      // let imageUrl = null;
+    const q = query(
+      productRef,
+      where("productName", "==", this.product.productName),
+      where("price", "==", this.product.price),
+      where("description", "==", this.product.description)
+    );
 
-      /*if (this.product.imagemProduto) {
-        imageUrl = await this.uploadImage(this.product.imagemProduto);
-      }*/
+    const querySnapshot = await getDocs(q);
 
-      const productData = {
+    if (!querySnapshot.empty) {
+      const docSnap = querySnapshot.docs[0];
+      const existingQuantity = parseInt(docSnap.data().quantity) || 0;
+      const newQuantity = existingQuantity + parseInt(quantity);
+      const productDocRef = doc(db, "products", docSnap.id);
+      await updateDoc(productDocRef, { quantity: newQuantity });
+    } else {
+      await addDoc(productRef, {
         ...this.product,
-        // imagemProduto: imageUrl,
-        timestamp: new Date(),
-      };
-
-      const docRef = await addDoc(collection(db, "products"), productData);
-      console.log("Produto adicionado com sucesso! Documento ID: ", docRef.id);
-      return docRef.id;
-    } catch (e) {
-      console.error("Erro ao adicionar o produto: ", e.message);
-      return null;
+        quantity: parseInt(quantity),
+      });
     }
   }
 }
