@@ -40,13 +40,17 @@ export const HomePage = () => {
     },
   ];
 
-  const product_data = [
-    { name: "Produto 1", description: "Descrição do produto 1", price: 100 },
-    { name: "Produto 2", description: "Descrição do produto 2", price: 200 },
-    { name: "Produto 3", description: "Descrição do produto 3", price: 300 },
-    { name: "Produto 4", description: "Descrição do produto 4", price: 400 },
-    { name: "Produto 5", description: "Descrição do produto 5", price: 500 },
-  ];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const querySnapshot = await getDocs(collection(db, "products"));
+      const productsList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProducts(productsList);
+    };
+    fetchProducts();
+  }, [db]);
 
   return (
     <div>

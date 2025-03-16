@@ -3,6 +3,7 @@ import AddProductToFirebase from "../../services/AddProductToFirebase";
 
 export const AddProduct = () => {
   const [quantityProducts, setQuantityProducts] = useState(1);
+
   const [product, setProduct] = useState({
     productName: "",
     imagemProduto: null,
@@ -15,6 +16,14 @@ export const AddProduct = () => {
   });
 
   const [errors, setErrors] = useState({});
+
+  const getCurrentDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = today.getMonth() + 1;
+    const dd = today.getDate();
+    return `${yyyy}-${mm < 10 ? `0${mm}` : mm}-${dd < 10 ? `0${dd}` : dd}`;
+  };
 
   const handleChange = (e) => {
     const { id, value, files } = e.target;
@@ -198,6 +207,7 @@ export const AddProduct = () => {
                 type="date"
                 id="promotionEndDate"
                 value={product.promotionEndDate}
+                min={getCurrentDate()}
                 onChange={handleChange}
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md"
               />
