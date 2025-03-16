@@ -43,7 +43,6 @@ export const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let i;
     let formErrors = {};
 
     if (!product.productName)
